@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %}Broadsheet - {{ grade }}{% endblock %}
+{% block content %}
+<h2>Broadsheet - Grade {{ grade }}</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Learner</th>
+            {% for subj in broadsheet.subjects %}
+                <th>{{ subj }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+    {% for learner in broadsheet.learners %}
+        <tr>
+            <td>{{ learner.full_name }}</td>
+            {% for subj in broadsheet.subjects %}
+                <td>{{ learner.marks.get(subj, '-') }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

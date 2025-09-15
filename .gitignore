@@ -1,0 +1,7 @@
+*.db
+*.log
+__pycache__/
+*.pyc
+# Ignore database and log files
+*.db
+*.log

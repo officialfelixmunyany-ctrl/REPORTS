@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block title %}All Learners{% endblock %}
+{% block content %}
+<h2>All Learners</h2>
+<form method="get" class="mb-3">
+  <label for="grade">Filter by Grade:</label>
+  <select name="grade" id="grade" onchange="this.form.submit()">
+    <option value="">All Grades</option>
+    {% for grade in grades %}
+      <option value="{{ grade }}" {% if grade == selected_grade %}selected{% endif %}>{{ grade }}</option>
+    {% endfor %}
+  </select>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Admission No</th>
+            <th>Grade</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for learner in learners %}
+        <tr {% if selected_grade and learner.grade == selected_grade %}style="background:#ffeeba;"{% endif %}>
+            <td>{{ learner.full_name }}</td>
+            <td>{{ learner.admission_no }}</td>
+            <td>{{ learner.grade }}</td>
+            <td>
+                <a href="{{ url_for('view_learner', learner_id=learner.id) }}">View</a> |
+                <a href="{{ url_for('report_pdf', learner_id=learner.id) }}">PDF</a> |
+                <a href="{{ url_for('export_word.export_learner_word', learner_id=learner.id) }}">Word</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<p>
+    <a href="{{ url_for('all_reports_pdf') }}">Download All Learners Report (PDF)</a>
+</p>
+{% endblock %}

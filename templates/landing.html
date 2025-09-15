@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="dashboard-container">
+    <h1>School Report Portal Dashboard</h1>
+    <ul class="dashboard-links">
+        <li><a href="{{ url_for('index') }}">Learner List & Reports</a></li>
+        <li><a href="{{ url_for('all_reports_pdf') }}">Export All Learners (PDF)</a></li>
+        <li><a href="/export_word">Export Word (Batch)</a></li>
+    </ul>
+    <h2>Grade-wise Reports & Broadsheets</h2>
+    <ul class="dashboard-links">
+        {% for grade in grades %}
+            <li>
+                <strong>{{ grade }}</strong>:
+                <a href="{{ url_for('grade_reports_pdf', grade=grade) }}">Export Reports (PDF)</a> |
+                <a href="{{ url_for('broadsheet_pdf', grade=grade) }}">Broadsheet (PDF)</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <p>Use the links above to access dedicated pages for each main task.</p>
+</div>
+{% endblock %}

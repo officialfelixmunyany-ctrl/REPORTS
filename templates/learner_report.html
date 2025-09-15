@@ -1,0 +1,136 @@
+{% extends "layout.html" %}
+{% block title %}Learner Report Sheet{% endblock %}
+{% block content %}
+<div style="border:2px solid #004080;padding:18px;border-radius:12px;max-width:800px;margin:auto;background:#f9fbff;">
+    <form method="get" style="margin-bottom:18px;display:flex;gap:18px;flex-wrap:wrap;align-items:center;justify-content:center;">
+        <label for="grade">Grade:</label>
+        <select name="grade" id="grade" onchange="this.form.submit()">
+            <option value="">All</option>
+            {% for g in grades %}
+                <option value="{{ g }}" {% if selected_grade==g %}selected{% endif %}>{{ g }}</option>
+            {% endfor %}
+        </select>
+        <label for="term">Term:</label>
+        <select name="term" id="term" onchange="this.form.submit()">
+            <option value="">All</option>
+            {% for t in terms %}
+                <option value="{{ t }}" {% if selected_term==t %}selected{% endif %}>{{ t }}</option>
+            {% endfor %}
+        </select>
+        <label for="exam_type">Exam Type:</label>
+        <select name="exam_type" id="exam_type" onchange="this.form.submit()">
+            <option value="">All</option>
+            {% for e in exam_types %}
+                <option value="{{ e }}" {% if selected_exam_type==e %}selected{% endif %}>{{ e }}</option>
+            {% endfor %}
+        </select>
+        <input type="hidden" name="learner_id" value="{{ learner.id }}">
+    </form>
+    <div style="display:flex;align-items:center;gap:18px;margin-bottom:12px;">
+        <img src="{{ url_for('static', filename='images/school_logo.jpg') }}" alt="School Logo" style="height:60px;border-radius:8px;box-shadow:0 2px 8px #00408044;">
+        <div>
+            <h2 style="margin:0;color:#004080;font-size:2em;">JOYLAND SCHOOLS</h2>
+            <div style="font-size:1em;line-height:1.3;">
+                Shelly Beach road, P.O BOX 86713, Mombasa, Kenya<br>
+                Tel: 0710404488 | Email: joylandpa@gmail.com<br>
+                Website: joylandschools.com
+            </div>
+        </div>
+    </div>
+        <h3 style="text-align:center;background:#e6f0ff;padding:8px 0;border-radius:8px;letter-spacing:1px;">
+            2025
+            {% if selected_term %} {{ selected_term|upper }}{% endif %}
+            {% if selected_exam_type %} {{ selected_exam_type|upper }}{% endif %}
+            REPORT SHEET
+        </h3>
+    <table style="width:100%;margin-bottom:18px;">
+        <tr style="background:#e6f0ff;font-weight:bold;">
+            <td colspan="2">STUDENT'S PERSONAL DATA</td>
+            <td colspan="2">SUMMARY</td>
+        </tr>
+        <tr>
+            <td><strong>ID</strong></td>
+            <td>{{ learner.id }}</td>
+            <td><strong>Total Score Obtainable</strong></td>
+            <td>{{ learner.total_score_obtainable or 500 }}</td>
+        </tr>
+        <tr>
+            <td><strong>Name</strong></td>
+            <td>{{ learner.full_name }}</td>
+            <td><strong>Total Score Obtained</strong></td>
+            <td>{{ learner.total_score_obtained }}</td>
+        </tr>
+        <tr>
+            <td><strong>Class</strong></td>
+            <td>{{ learner.grade }}</td>
+            <td><strong>Average Percentage</strong></td>
+            <td>{{ learner.average_percentage }}</td>
+        </tr>
+    </table>
+
+    <h4 style="color:#004080;margin-top:18px;">ACADEMIC PERFORMANCE</h4>
+    <table>
+        <thead>
+            <tr style="background:#e6f0ff;">
+                <th>SUBJECT</th>
+                <th>EXAM</th>
+                <th>TOTAL SCORE</th>
+                <th>CLASS AVERAGE</th>
+                <th>REMARKS</th>
+                <th>CLASS HIGHEST</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for m in learner.marks %}
+            <tr>
+                <td>{{ m.subject }}</td>
+                <td>{{ m.exam_type or 'Opener' }}</td>
+                <td>{{ m.score }}</td>
+                <td>{{ m.class_average }}</td>
+                <td>{{ m.remarks }}</td>
+                <td>{{ m.class_highest }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h4 style="margin-top:18px;color:#004080;">KEYS TO RATING</h4>
+    <table style="width:100%;margin-bottom:18px;">
+        <tr>
+            <td>100-80 (exceeding expectations)</td>
+            <td>79-65 (meeting expectations)</td>
+            <td>64-50 (approaching expectations)</td>
+            <td>50-0 (below expectations)</td>
+        </tr>
+    </table>
+
+    <div style="margin-top:18px;">
+        <table style="width:100%;">
+            <tr>
+                <td style="width:50%;vertical-align:top;">
+                    <strong>Class Teacher's Comments:</strong><br>
+                    <span>{{ learner.teacher_comments or 'Exceptional achievement! You are a role model to your peers.' }}</span>
+                </td>
+                <td style="width:50%;vertical-align:top;">
+                    <strong>Principal's Comments:</strong><br>
+                    <span>{{ learner.principal_comments or 'Truly outstanding. Keep setting the standard!' }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Sign.:</strong> ____________________<br>
+                    <strong>Date:</strong> {{ learner.teacher_date or '2025-09-08' }}
+                </td>
+                <td>
+                    <strong>Sign.:</strong> ____________________<br>
+                    <strong>Date:</strong> {{ learner.principal_date or '2025-09-08' }}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="margin-top:28px;text-align:center;">
+        <span style="display:inline-block;border:2px dashed #004080;padding:18px 48px;border-radius:12px;color:#004080;font-size:1.2em;opacity:0.7;">School Stamp</span>
+    </div>
+</div>
+{% endblock %}

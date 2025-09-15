@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %}All Learners Report{% endblock %}
+{% block content %}
+<h2>All Learners Report</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Admission No</th>
+            <th>Grade</th>
+            <th>Average Score</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for learner in learners %}
+        <tr>
+            <td>{{ learner.full_name }}</td>
+            <td>{{ learner.admission_no }}</td>
+            <td>{{ learner.grade }}</td>
+            <td>{{ "%.2f"|format(learner.average_score or 0) }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

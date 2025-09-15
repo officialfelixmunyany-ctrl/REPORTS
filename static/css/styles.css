@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background: #f8f9fa;
+    color: #333;
+}
+
+
+header, footer {
+    background: #004080;
+    color: white;
+    padding: 18px 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #00408022;
+}
+
+nav {
+    margin-top: 8px;
+}
+nav a {
+    margin-right: 18px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 6px 16px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+nav a:hover {
+    background: #0059b3;
+}
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px #00408022;
+    padding: 30px;
+    margin: 30px auto;
+    max-width: 900px;
+}
+
+header img {
+    box-shadow: 0 2px 8px #00408044;
+}
+
+h1, h2, h3 {
+    color: #004080;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    background: white;
+    border: 1px solid #ccc;
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+.flashes {
+    list-style: none;
+    padding: 0;
+}
+
+.flashes li {
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.flashes li.success { background: #d4edda; color: #155724; }
+.flashes li.danger { background: #f8d7da; color: #721c24; }
