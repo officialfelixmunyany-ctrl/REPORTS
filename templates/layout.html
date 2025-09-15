@@ -2,40 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}School Reports{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <header>
-        <div style="display:flex;align-items:center;gap:15px;">
-            <img src="{{ url_for('static', filename='images/school_logo.jpg') }}" alt="School Logo" style="height:40px;border-radius:8px;">
-            <h1 style="margin:0;">Joyland Schools Report Portal</h1>
-        </div>
-    <nav style="margin-top:10px;display:flex;align-items:center;gap:18px;">
-    <a href="{{ url_for('dashboard') }}">Dashboard</a>
-    <a href="{{ url_for('index') }}">All Learners</a>
-      <!-- Broadsheet dropdown removed for cleaner navigation -->
-      <a href="{{ url_for('all_reports_pdf') }}">All Reports PDF</a>
-    </nav>
+    <!-- Header -->
+    <header class="site-header">
+        <img src="{{ url_for('static', filename='images/school_logo.jpg') }}" 
+             alt="School Logo" class="logo">
+        <h1 class="site-title">School Report Portal</h1>
     </header>
 
-    <main>
-        <div class="card" style="max-width:900px;margin:30px auto;padding:30px;background:white;border-radius:12px;box-shadow:0 2px 12px #00408022;">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-              {% if messages %}
-                <ul class="flashes">
-                  {% for category, message in messages %}
-                    <li class="{{ category }}">{{ message }}</li>
-                  {% endfor %}
-                </ul>
-              {% endif %}
-            {% endwith %}
-            {% block content %}{% endblock %}
-        </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{ url_for('index') }}">🏠 Home</a></li>
+            <li><a href="{{ url_for('grade_reports') }}">📊 Grade Reports</a></li>
+            <li><a href="{{ url_for('broadsheet') }}">📑 Broadsheet</a></li>
+            <li><a href="{{ url_for('all_learners_report') }}">📄 All Learner Reports</a></li>
+        </ul>
+    </nav>
+
+    <!-- Page Content -->
+    <main class="content">
+        {% block content %}{% endblock %}
     </main>
 
-    <footer>
-        <small>&copy; 2025 Joyland Schools</small>
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>&copy; {{ current_year }} Joyland Schools</p>
     </footer>
 </body>
 </html>
